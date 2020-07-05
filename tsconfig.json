@@ -19,10 +19,13 @@
     "baseUrl": "src"
   },
   "paths": {
+    "src/*": ["./*"],
     "features/*": ["features/*"],
     "lib/*": ["lib/*"],
     "api/*": ["api/*"],
-    "ui/*": ["ui/*"]
+    "ui/*": ["ui/*"],
+    "assets/*": ["assets/*"]
   },
+  "types": ["./typings/svg"],
   "exclude": ["build", "config"]
 }

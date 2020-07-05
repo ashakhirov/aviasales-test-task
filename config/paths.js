@@ -24,6 +24,7 @@ module.exports = {
   appLib: resolveApp('src/lib'),
   appUi: resolveApp('src/ui'),
   appApi: resolveApp('src/api'),
+  appAssets: resolveApp('src/assets'),
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp('build'),

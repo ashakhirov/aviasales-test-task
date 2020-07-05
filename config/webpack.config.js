@@ -145,10 +145,12 @@ module.exports = {
     plugins: [PnpWebpackPlugin],
     alias: {
       'react-dom': '@hot-loader/react-dom',
+      src: paths.appSrc,
       features: paths.appFeatures,
       ui: paths.appUi,
       api: paths.appApi,
       lib: paths.appLib,
+      assets: paths.appAssets,
     },
   },
   resolveLoader: {
@@ -194,7 +196,7 @@ module.exports = {
         }),
       },
       {
-        test: [/\.jpe?g$/, /\.png$/, /\.webp$/],
+        test: /\.(jpg|jpeg|png|webp)$/,
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
@@ -202,7 +204,7 @@ module.exports = {
         },
       },
       {
-        test: [/\.svg$/],
+        test: /\.svg$/,
         use: [
           {
             loader: require.resolve('@svgr/webpack'),
