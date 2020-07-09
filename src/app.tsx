@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader/root'
 import styled from 'styled-components'
 
 import { Layout, AppBar, Main } from 'ui'
+import { TicketList } from 'features/tickets'
 import { GlobalStyles } from './global-styles'
 
 const App: React.FC = () => {
@@ -14,7 +15,7 @@ const App: React.FC = () => {
         <Main>
           <FilteringMenu>Filters</FilteringMenu>
           <SortingMenu>Tabs</SortingMenu>
-          <TicketList>Tickets</TicketList>
+          <TicketList />
         </Main>
       </Layout>
     </>
@@ -36,14 +37,6 @@ const SortingMenu = styled.section`
 
   /* temporary props */
   height: 50px;
-  border: 2px solid black;
-`
-
-const TicketList = styled.div`
-  grid-column: 2 / 3;
-
-  /* temporary props */
-  height: 184px;
   border: 2px solid black;
 `
 

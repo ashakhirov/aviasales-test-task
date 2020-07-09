@@ -8,8 +8,7 @@ export const Layout: React.FC = ({ children }) => (
 )
 
 const Scaffold = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 `
 
 const Container = styled.div`

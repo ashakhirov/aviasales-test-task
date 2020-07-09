@@ -7,7 +7,7 @@ export const Main: React.FC = ({ children }) => (
 
 const MainTemplate = styled.main`
   display: grid;
-  grid-template-columns: 30% minmax(auto, 65%);
+  grid-template-columns: 1fr minmax(auto, 2fr);
   grid-template-rows: auto auto;
-  grid-gap: 5%;
+  grid-gap: 20px;
 `

@@ -20,18 +20,22 @@ export const GlobalStyles = createGlobalStyle`
     --button-height: 1rem;
   }
 
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+
   html,
   body {
     -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
-    width: 100vw;
-    height: 100vh;
+    box-sizing: inherit;
     margin: 0;
     padding: 0;
     font-family: var(--primary-font);
     font-size: 12px;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.7;
     color: var(--text-color);
     background: var(--bg-color);
   }
@@ -43,9 +47,5 @@ export const GlobalStyles = createGlobalStyle`
   h5,
   h6 {
     margin: 0;
-  }
-
-  #root {
-    height: 100vh;
   }
 `
