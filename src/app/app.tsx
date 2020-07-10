@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { Layout, AppBar, Main } from 'ui'
 import { TicketList } from 'features/tickets'
-import { GlobalStyles } from './global-styles'
+import { GlobalStyles } from '../global-styles'
 
 const App: React.FC = () => {
   return (
