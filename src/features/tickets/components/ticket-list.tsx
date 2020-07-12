@@ -1,43 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
+import { Skeleton } from 'ui'
 import { TicketCard } from './ticket-card'
+import { selectTickets } from '../slice'
 
 export const TicketList: React.FC = () => {
+  const { entities: tickets, isLoading } = useSelector(selectTickets)
+
   return (
     <TicketListTemplate>
-      {Array.from(
-        [
-          {
-            price: '15 000',
-            logo: '//pics.avs.io/99/36/TG.png',
-            carrier: 'Логотип авиакомпании',
-          },
-          {
-            price: '15 000',
-            logo: '//pics.avs.io/99/36/TG.png',
-            carrier: 'Логотип авиакомпании',
-          },
-          {
-            price: '15 000',
-            logo: '//pics.avs.io/99/36/TG.png',
-            carrier: 'Логотип авиакомпании',
-          },
-          {
-            price: '15 000',
-            logo: '//pics.avs.io/99/36/TG.png',
-            carrier: 'Логотип авиакомпании',
-          },
-          {
-            price: '15 000',
-            logo: '//pics.avs.io/99/36/TG.png',
-            carrier: 'Логотип авиакомпании',
-          },
-        ],
-        (ticket, idx) => (
-          <TicketCard key={idx} ticket={ticket} />
-        ),
-      )}
+      {isLoading
+        ? Array.from({ length: 5 }, (_, idx) => ({ id: idx })).map((_, idx) => (
+            <Skeleton key={idx} />
+          ))
+        : tickets
+            .slice(0, 5)
+            .map((ticket) => <TicketCard key={ticket.id} ticket={ticket} />)}
     </TicketListTemplate>
   )
 }

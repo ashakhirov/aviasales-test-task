@@ -1,16 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const TicketSegment: React.FC = () => {
+import { formatDuration, formatTimeInterval } from 'lib/date'
+import { Segment } from '../types'
+
+type Props = {
+  segment: Segment
+}
+
+export const TicketSegment: React.FC<Props> = ({ segment }) => {
+  const route = `${segment.origin} – ${segment.destination}`
+  const timeInterval = formatTimeInterval(
+    segment.date,
+    segment.duration,
+    'Europe/Moscow',
+  )
+
   return (
     <Container>
       <Wrapper>
-        <Title>MOW – HKT</Title>
-        <Description>11:20 – 00:50</Description>
+        <Title>{route}</Title>
+        <Description>{timeInterval}</Description>
       </Wrapper>
       <Wrapper>
         <Title>В Пути</Title>
-        <Description>11:20 – 00:50</Description>
+        <Description>{formatDuration(segment.duration)}</Description>
       </Wrapper>
       <Wrapper>
         <Title>Без Пересадок</Title>

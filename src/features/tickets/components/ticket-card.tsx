@@ -3,22 +3,27 @@ import styled from 'styled-components'
 
 import { TicketHeader } from './ticket-header'
 import { TicketSegment } from './ticket-segment'
+import { Ticket } from '../types'
 
 type Props = {
-  ticket: any
+  ticket: Ticket
 }
 
 export const TicketCard: React.FC<Props> = ({ ticket }) => {
   return (
     <TicketCardTemplate>
       <TicketHeader
-        price="13 400"
-        logo="//pics.avs.io/99/36/TG.png"
-        carrier="Логотип авиакомпании"
+        price={ticket.price}
+        logo={ticket.logo}
+        carrier={ticket.carrier}
       />
       <TicketBody>
-        <TicketSegment />
-        <TicketSegment />
+        {ticket.segments.map((segment) => (
+          <TicketSegment
+            key={segment.date.toLocaleString()}
+            segment={segment}
+          />
+        ))}
       </TicketBody>
     </TicketCardTemplate>
   )
