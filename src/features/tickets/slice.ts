@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { all, call, take, put, fork, retry } from 'redux-saga/effects'
-
 import { RootState } from 'app/root-reducer'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
+import { transformTicket } from './lib/transformer'
 
 const initialState: TicketsState = {
   entities: [],
@@ -21,8 +21,8 @@ const ticketsSlice = createSlice({
       state.error = false
     },
     fetchTicketsSuccess(state, action: PayloadAction<Ticket[]>) {
-      state.isLoading = false
       state.entities = action.payload
+      state.isLoading = false
       state.error = false
     },
     fetchTicketsFailure(state) {
@@ -48,7 +48,8 @@ function* fetchTickets() {
 
   try {
     const { tickets } = yield call(getTickets, searchId)
-    yield put(fetchTicketsSuccess(tickets))
+    const transformedTickets = tickets.map(transformTicket)
+    yield put(fetchTicketsSuccess(transformedTickets))
   } catch {
     yield retryFetchTickets(searchId)
   }
@@ -61,7 +62,8 @@ function* fetchTickets() {
 function* retryFetchTickets(searchId: string) {
   try {
     const { tickets } = yield retry(5, 100, getTickets, searchId)
-    yield put(fetchTicketsSuccess(tickets))
+    const transformedTickets = tickets.map(transformTicket)
+    yield put(fetchTicketsSuccess(transformedTickets))
   } catch {
     yield put(fetchTicketsFailure())
   }

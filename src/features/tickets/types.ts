@@ -4,7 +4,7 @@ export type SearchIdResponse = {
   searchId: string
 }
 
-export type Segment = {
+export type SegmentEntity = {
   origin: string
   destination: string
   date: Date
@@ -12,8 +12,25 @@ export type Segment = {
   duration: number
 }
 
-export type Ticket = {
+export type Segment = {
+  id: string
+  origin: string
+  destination: string
+  date: Date
+  stops: string[]
+  duration: number
+}
+
+export type TicketEntity = {
   price: string
+  carrier: string
+  segments: Segment[]
+}
+
+export type Ticket = {
+  id: string
+  price: string
+  logo: string
   carrier: string
   segments: Segment[]
 }
