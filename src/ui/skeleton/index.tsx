@@ -82,6 +82,6 @@ const LinePlaceholder = styled.div<PlaceholderProps>`
       transparent
     );
 
-    animation: ${loading} 0.7s infinite;
+    animation: ${loading} 0.6s infinite;
   }
 `

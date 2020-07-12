@@ -6,7 +6,13 @@ type RequestAttr = {
   params?: Record<string, string>
 }
 
-type Request = <T>({ method, path, params }: RequestAttr) => Promise<T>
+type Request = <T>({ method, path, params }: RequestAttr) => Promise<Answer<T>>
+
+export type Answer<T = unknown> = {
+  ok: boolean
+  status: number
+  body: T
+}
 
 /**
  * make request

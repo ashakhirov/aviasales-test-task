@@ -1,5 +1,7 @@
-import { AllEffect, all } from 'redux-saga/effects'
+import { all, fork } from 'redux-saga/effects'
 
-export function* rootSaga(): Generator<AllEffect<never>, void, unknown> {
-  yield all([])
+import { ticketsSaga } from 'features/tickets'
+
+export function* rootSaga() {
+  yield all([fork(ticketsSaga)])
 }

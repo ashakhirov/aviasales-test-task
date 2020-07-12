@@ -1,12 +1,19 @@
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 
 import { Layout, AppBar, Main } from 'ui'
-import { TicketList } from 'features/tickets'
+import { TicketList, fetchTicketsStart } from 'features/tickets'
 import { GlobalStyles } from '../global-styles'
 
 const App: React.FC = () => {
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    dispatch(fetchTicketsStart())
+  }, [dispatch])
+
   return (
     <>
       <GlobalStyles />
