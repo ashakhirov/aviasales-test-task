@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import { Layout, AppBar, Main } from 'ui'
 import { TicketList, fetchTicketsStart } from 'features/tickets'
+import { Sorting } from 'features/sorting'
 import { GlobalStyles } from '../global-styles'
 
 const App: React.FC = () => {
@@ -21,7 +22,7 @@ const App: React.FC = () => {
         <AppBar />
         <Main>
           <FilteringMenu>Filters</FilteringMenu>
-          <SortingMenu>Tabs</SortingMenu>
+          <Sorting>Tabs</Sorting>
           <TicketList />
         </Main>
       </Layout>
@@ -35,15 +36,6 @@ const FilteringMenu = styled.aside`
 
   /* temporary props */
   height: 252px;
-  border: 2px solid black;
-`
-
-const SortingMenu = styled.section`
-  grid-column: 2 / 3;
-  grid-row: span 1;
-
-  /* temporary props */
-  height: 50px;
   border: 2px solid black;
 `
 
