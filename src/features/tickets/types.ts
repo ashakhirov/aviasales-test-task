@@ -4,14 +4,6 @@ export type SearchIdResponse = {
   searchId: string
 }
 
-export type SegmentEntity = {
-  origin: string
-  destination: string
-  date: Date
-  stops: string[]
-  duration: number
-}
-
 export type Segment = {
   id: string
   origin: string
@@ -21,11 +13,7 @@ export type Segment = {
   duration: number
 }
 
-export type TicketEntity = {
-  price: string
-  carrier: string
-  segments: Segment[]
-}
+export type SegmentEntity = Omit<Segment, 'id'>
 
 export type Ticket = {
   id: string
@@ -34,6 +22,8 @@ export type Ticket = {
   carrier: string
   segments: Segment[]
 }
+
+export type TicketEntity = Omit<Ticket, 'id' | 'logo'>
 
 export type TicketsResponse = {
   stop: boolean

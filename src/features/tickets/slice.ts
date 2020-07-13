@@ -1,5 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, createSelector } from '@reduxjs/toolkit'
 import { all, call, take, put, fork, retry } from 'redux-saga/effects'
+
 import { RootState } from 'app/root-reducer'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
@@ -20,10 +21,16 @@ const ticketsSlice = createSlice({
       state.entities = []
       state.error = false
     },
-    fetchTicketsSuccess(state, action: PayloadAction<Ticket[]>) {
-      state.entities = action.payload
-      state.isLoading = false
-      state.error = false
+    fetchTicketsSuccess: {
+      reducer(state, action: PayloadAction<Ticket[]>) {
+        state.isLoading = false
+        state.entities = action.payload
+        state.error = false
+      },
+      prepare(tickets) {
+        const transformedTickets = tickets.map(transformTicket)
+        return { payload: transformedTickets }
+      },
     },
     fetchTicketsFailure(state) {
       state.isLoading = false
@@ -31,6 +38,8 @@ const ticketsSlice = createSlice({
     },
   },
 })
+
+export const ticketsReducer = ticketsSlice.reducer
 
 // Actions
 export const {
@@ -40,7 +49,17 @@ export const {
 } = ticketsSlice.actions
 
 // Selectors
-export const selectTickets = (state: RootState): TicketsState => state.tickets
+const selectTickets = (state: RootState): TicketsState => state.tickets
+
+export const selectIsTicketsFetching = createSelector(
+  [selectTickets],
+  (tickets) => tickets.isLoading,
+)
+
+export const selectTicketsEntities = createSelector(
+  [selectTickets],
+  (tickets) => tickets.entities,
+)
 
 // Sagas
 function* fetchTickets() {
@@ -48,8 +67,8 @@ function* fetchTickets() {
 
   try {
     const { tickets } = yield call(getTickets, searchId)
-    const transformedTickets = tickets.map(transformTicket)
-    yield put(fetchTicketsSuccess(transformedTickets))
+
+    yield put(fetchTicketsSuccess(tickets))
   } catch {
     yield retryFetchTickets(searchId)
   }
@@ -57,13 +76,12 @@ function* fetchTickets() {
 
 /**
  * retry to fetch tickets if the request fails with error
- * @param searchId param for request
+ * @param {string} searchId param for request
  */
 function* retryFetchTickets(searchId: string) {
   try {
     const { tickets } = yield retry(5, 100, getTickets, searchId)
-    const transformedTickets = tickets.map(transformTicket)
-    yield put(fetchTicketsSuccess(transformedTickets))
+    yield put(fetchTicketsSuccess(tickets))
   } catch {
     yield put(fetchTicketsFailure())
   }
@@ -79,5 +97,3 @@ function* watchFetchTickets() {
 export function* ticketsSaga() {
   yield all([fork(watchFetchTickets)])
 }
-
-export const ticketsReducer = ticketsSlice.reducer

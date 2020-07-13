@@ -4,9 +4,15 @@ import createSagaMiddleware from 'redux-saga'
 import { rootReducer } from './root-reducer'
 import { rootSaga } from './root-saga'
 
+const customizedMiddleware = getDefaultMiddleware({
+  thunk: false,
+  serializableCheck: true,
+  immutableCheck: true,
+})
+
 const sagaMiddleware = createSagaMiddleware()
 
-const middleware = [sagaMiddleware, ...getDefaultMiddleware()]
+const middleware = [sagaMiddleware, ...customizedMiddleware]
 
 export const store = configureStore({
   reducer: rootReducer,

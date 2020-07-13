@@ -6,18 +6,20 @@ export const GlobalStyles = createGlobalStyle`
     --primary-font: 'Open Sans', Tahoma, 'sans-serif';
     --primary-text-color: var(--black);
     --secondary-text-color: var(--gray);
-    --bg-color: var(--mercury);
+    --bg-color: var(--catskill);
+    --border-radius: 6px;
 
     /* colors */
     --black: #000;
     --gray: #a0b0b9;
     --white: #fff;
     --blue: #2196f3;
-    --mercury: #e5e5e5;
+    --catskill: #f3f7fa;
 
     /* button */
     --button-border: 1px solid #dfe5ec;
-    --button-height: 1rem;
+    --button-border-active: 1px solid var(--blue);
+    --button-border-radius: 5px;
   }
 
   *,
@@ -37,7 +39,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 600;
     line-height: 1.7;
     color: var(--text-color);
-    background: var(--bg-color);
+    background-color: var(--bg-color);
   }
 
   h1,
