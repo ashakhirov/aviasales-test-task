@@ -1,2 +1,2 @@
 export { Sorting } from './components/sorting'
-export { sortingReducer } from './slice'
+export { sortingReducer, selectSortingValue } from './slice'

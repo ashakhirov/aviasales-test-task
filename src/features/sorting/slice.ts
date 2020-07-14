@@ -2,7 +2,13 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 
 import { RootState } from 'app/root-reducer'
 
-const initialState = {
+export type SortingValue = 'price' | 'duration'
+
+type SortingState = {
+  value: SortingValue
+}
+
+const initialState: SortingState = {
   value: 'price',
 }
 
@@ -10,7 +16,7 @@ const sortingSlice = createSlice({
   name: 'sorting',
   initialState,
   reducers: {
-    toggleSorting(state, action: PayloadAction<string>) {
+    toggleSorting(state, action: PayloadAction<SortingValue>) {
       state.value = action.payload
     },
   },
