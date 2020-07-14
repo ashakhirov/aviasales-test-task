@@ -1,40 +1,50 @@
 import { PayloadAction, createSlice, createSelector } from '@reduxjs/toolkit'
-import { all, call, take, put, fork, retry } from 'redux-saga/effects'
+import { all, call, take, put, fork, delay, cancel } from 'redux-saga/effects'
 
 import { RootState } from 'app/root-reducer'
+import { selectSortingValue } from 'features/sorting'
+import { compareNumbers } from 'lib/number'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
 import { transformTicket } from './lib/transformer'
 
 const initialState: TicketsState = {
   entities: [],
+  polling: false,
   isLoading: false,
-  error: false,
+  error: null,
 }
 
 const ticketsSlice = createSlice({
   name: 'tickets',
   initialState,
   reducers: {
+    pollingStop(state) {
+      state.polling = false
+      state.error = null
+    },
     fetchTicketsStart(state) {
       state.isLoading = true
+      state.polling = true
       state.entities = []
-      state.error = false
+      state.error = null
     },
     fetchTicketsSuccess: {
       reducer(state, action: PayloadAction<Ticket[]>) {
         state.isLoading = false
-        state.entities = action.payload
-        state.error = false
+        state.entities = [...state.entities, ...action.payload]
+        state.error = null
       },
       prepare(tickets) {
         const transformedTickets = tickets.map(transformTicket)
         return { payload: transformedTickets }
       },
     },
-    fetchTicketsFailure(state) {
+    fetchTicketsFailure(state, action: PayloadAction<string>) {
+      state.entities = [...state.entities]
       state.isLoading = false
-      state.error = true
+      state.polling = false
+      state.error = action.payload
     },
   },
 })
@@ -43,6 +53,7 @@ export const ticketsReducer = ticketsSlice.reducer
 
 // Actions
 export const {
+  pollingStop,
   fetchTicketsStart,
   fetchTicketsSuccess,
   fetchTicketsFailure,
@@ -61,36 +72,51 @@ export const selectTicketsEntities = createSelector(
   (tickets) => tickets.entities,
 )
 
+export const selectSortedTickets = createSelector(
+  [selectTicketsEntities, selectSortingValue],
+  (tickets, value) =>
+    [...tickets].sort((current, next) =>
+      compareNumbers(current[value], next[value]),
+    ),
+)
+
 // Sagas
-function* fetchTickets() {
+function* fetchSearchId() {
   const { searchId } = yield call(getSearchId)
+  return searchId
+}
 
-  try {
-    const { tickets } = yield call(getTickets, searchId)
+/**
+ * fetch tickets from backend
+ * retry fetching if we will have server error
+ * @param {string} searchId param for fetching tickets
+ */
+function* fetchTickets(searchId: string) {
+  while (true) {
+    try {
+      const { tickets, stop } = yield call(getTickets, searchId)
 
-    yield put(fetchTicketsSuccess(tickets))
-  } catch {
-    yield retryFetchTickets(searchId)
+      if (!stop) {
+        yield put(fetchTicketsSuccess(tickets))
+      } else {
+        yield put(pollingStop())
+      }
+    } catch (error) {
+      yield put(fetchTicketsFailure(error.message))
+      yield delay(1000)
+    }
   }
 }
 
 /**
- * retry to fetch tickets if the request fails with error
- * @param {string} searchId param for request
+ * when polling stops cancel fetcing tickets
  */
-function* retryFetchTickets(searchId: string) {
-  try {
-    const { tickets } = yield retry(5, 100, getTickets, searchId)
-    yield put(fetchTicketsSuccess(tickets))
-  } catch {
-    yield put(fetchTicketsFailure())
-  }
-}
-
 function* watchFetchTickets() {
-  while (true) {
-    yield take(fetchTicketsStart)
-    yield call(fetchTickets)
+  while (yield take(fetchTicketsStart)) {
+    const searchId = yield call(fetchSearchId)
+    const task = yield fork(fetchTickets, searchId)
+    yield take(pollingStop)
+    yield cancel(task)
   }
 }
 

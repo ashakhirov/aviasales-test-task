@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux'
 
 import { Skeleton } from 'ui'
 import { TicketCard } from './ticket-card'
-import { selectIsTicketsFetching, selectTicketsEntities } from '../slice'
+import { selectIsTicketsFetching, selectSortedTickets } from '../slice'
 
 export const TicketList: React.FC = () => {
   const isLoading = useSelector(selectIsTicketsFetching)
-  const tickets = useSelector(selectTicketsEntities)
+  const tickets = useSelector(selectSortedTickets)
 
   return (
     <TicketListTemplate>

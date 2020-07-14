@@ -8,7 +8,7 @@ type Props = {
   segment: Segment
 }
 
-export const TicketSegment: React.FC<Props> = ({ segment }) => {
+export const TicketSegment: React.FC<Props> = React.memo(({ segment }) => {
   const route = `${segment.origin} – ${segment.destination}`
   const timeInterval = formatTimeInterval(
     segment.date,
@@ -32,7 +32,7 @@ export const TicketSegment: React.FC<Props> = ({ segment }) => {
       </Wrapper>
     </Container>
   )
-}
+})
 
 const Container = styled.div`
   display: flex;

@@ -17,9 +17,10 @@ export type SegmentEntity = Omit<Segment, 'id'>
 
 export type Ticket = {
   id: string
-  price: string
+  price: number
   logo: string
   carrier: string
+  duration: number
   segments: Segment[]
 }
 
@@ -32,6 +33,7 @@ export type TicketsResponse = {
 
 export type TicketsState = {
   entities: Ticket[]
+  polling: boolean
   isLoading: boolean
-  error: boolean
+  error: string | null
 }

@@ -9,7 +9,7 @@ type Props = {
   ticket: Ticket
 }
 
-export const TicketCard: React.FC<Props> = ({ ticket }) => {
+export const TicketCard: React.FC<Props> = React.memo(({ ticket }) => {
   return (
     <TicketCardTemplate>
       <TicketHeader
@@ -27,7 +27,7 @@ export const TicketCard: React.FC<Props> = ({ ticket }) => {
       </TicketBody>
     </TicketCardTemplate>
   )
-}
+})
 
 const TicketCardTemplate = styled.li`
   margin-bottom: 20px;

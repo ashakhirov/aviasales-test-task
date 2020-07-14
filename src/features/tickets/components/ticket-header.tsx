@@ -1,22 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
 
-type Props = {
-  price: string
-  logo: string
-  carrier: string
-}
+import { Ticket } from '../types'
 
-export const TicketHeader: React.FC<Props> = ({ price, logo, carrier }) => {
-  return (
-    <Wrapper>
-      <Price>{price} Р</Price>
-      <LogoContainer>
-        <Logo src={logo} alt={carrier} />
-      </LogoContainer>
-    </Wrapper>
-  )
-}
+type Props = Omit<Ticket, 'id' | 'segments' | 'duration'>
+
+export const TicketHeader: React.FC<Props> = React.memo(
+  ({ price, logo, carrier }) => {
+    return (
+      <Wrapper>
+        <Price>{price} Р</Price>
+        <LogoContainer>
+          <Logo src={logo} alt={carrier} />
+        </LogoContainer>
+      </Wrapper>
+    )
+  },
+)
 
 const Wrapper = styled.div`
   display: flex;
