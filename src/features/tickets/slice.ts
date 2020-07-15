@@ -7,6 +7,7 @@ import { compareNumbers } from 'lib/number'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
 import { transformTicket } from './lib/transformer'
+import { SECONDS } from './constants'
 
 const initialState: TicketsState = {
   entities: [],
@@ -103,7 +104,7 @@ function* fetchTickets(searchId: string) {
       }
     } catch (error) {
       yield put(fetchTicketsFailure(error.message))
-      yield delay(1000)
+      yield delay(SECONDS)
     }
   }
 }

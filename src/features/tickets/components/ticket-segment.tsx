@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { formatDuration, formatTimeInterval } from 'lib/date'
+import { DEFAULT_TIME_ZONE, STOPS, WITHOUT_STOPS } from '../constants'
 import { Segment } from '../types'
+import { createNounDeclension } from 'lib/string'
 
 type Props = {
   segment: Segment
@@ -10,10 +12,17 @@ type Props = {
 
 export const TicketSegment: React.FC<Props> = React.memo(({ segment }) => {
   const route = `${segment.origin} – ${segment.destination}`
+  const stops = segment.stops.length === 0 ? 'Прямой' : segment.stops.join(', ')
+  const duration = formatDuration(segment.duration)
   const timeInterval = formatTimeInterval(
     segment.date,
     segment.duration,
-    'Europe/Moscow',
+    DEFAULT_TIME_ZONE,
+  )
+  const stopsTitle = createNounDeclension(
+    segment.stops.length,
+    STOPS,
+    WITHOUT_STOPS,
   )
 
   return (
@@ -24,11 +33,11 @@ export const TicketSegment: React.FC<Props> = React.memo(({ segment }) => {
       </Wrapper>
       <Wrapper>
         <Title>В Пути</Title>
-        <Description>{formatDuration(segment.duration)}</Description>
+        <Description>{duration}</Description>
       </Wrapper>
       <Wrapper>
-        <Title>Без Пересадок</Title>
-        <Description>Прямой</Description>
+        <Title>{stopsTitle}</Title>
+        <Description>{stops}</Description>
       </Wrapper>
     </Container>
   )

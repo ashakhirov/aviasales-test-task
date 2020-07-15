@@ -17,14 +17,19 @@ export type SegmentEntity = Omit<Segment, 'id'>
 
 export type Ticket = {
   id: string
-  price: number
+  price: string
   logo: string
   carrier: string
   duration: number
   segments: Segment[]
 }
 
-export type TicketEntity = Omit<Ticket, 'id' | 'logo'>
+export type TicketEntity = {
+  price: number
+  carrier: string
+  duration: number
+  segments: Segment[]
+}
 
 export type TicketsResponse = {
   stop: boolean

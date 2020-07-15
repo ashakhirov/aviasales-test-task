@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { nanoid } from 'nanoid'
 
-import { toggleSorting, selectSortingValue } from '../slice'
+import { toggleSorting, selectSortingValue, SortingValue } from '../slice'
 
 type TabProps = {
   title: string
-  value: string
+  value: SortingValue
   active: boolean
 }
 
@@ -15,7 +15,7 @@ type ItemProps = {
   active: boolean
 }
 
-const tabs = [
+const tabs: { id: string; title: string; value: SortingValue }[] = [
   {
     id: nanoid(),
     title: 'Самый дешевый',
