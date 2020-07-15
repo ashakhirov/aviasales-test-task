@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import { Layout, AppBar, Main } from 'ui'
-import { TicketList, fetchTicketsStart } from 'features/tickets'
+import { TicketList, fetchTicketsStart, LoadingBar } from 'features/tickets'
 import { Sorting } from 'features/sorting'
 import { GlobalStyles } from '../global-styles'
 
@@ -19,6 +19,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyles />
       <Layout>
+        <LoadingBar />
         <AppBar />
         <Main>
           <FilteringMenu>Filters</FilteringMenu>

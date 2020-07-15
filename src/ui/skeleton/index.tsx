@@ -1,26 +1,24 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-export const Skeleton: React.FC = () => {
-  return (
-    <Box>
-      <Wrapper>
-        <LinePlaceholder width="80" height="13px" mb="10px" />
-        <LinePlaceholder width="40%" height="9px" />
-      </Wrapper>
-      <Wrapper>
-        <Segment>
-          <LinePlaceholder width="100%" height="11px" mb="5px" />
-          <LinePlaceholder width="75%" height="9px" />
-        </Segment>
-        <Segment>
-          <LinePlaceholder width="100%" height="11px" mb="5px" />
-          <LinePlaceholder width="75%" height="9px" />
-        </Segment>
-      </Wrapper>
-    </Box>
-  )
-}
+export const Skeleton: React.FC = () => (
+  <Box>
+    <Wrapper>
+      <LinePlaceholder width="80" height="13px" mb="10px" />
+      <LinePlaceholder width="40%" height="9px" />
+    </Wrapper>
+    <Wrapper>
+      <Segment>
+        <LinePlaceholder width="100%" height="11px" mb="5px" />
+        <LinePlaceholder width="75%" height="9px" />
+      </Segment>
+      <Segment>
+        <LinePlaceholder width="100%" height="11px" mb="5px" />
+        <LinePlaceholder width="75%" height="9px" />
+      </Segment>
+    </Wrapper>
+  </Box>
+)
 
 const Box = styled.div`
   margin-bottom: 20px;

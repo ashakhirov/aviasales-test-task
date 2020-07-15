@@ -17,7 +17,7 @@ export type SegmentEntity = Omit<Segment, 'id'>
 
 export type Ticket = {
   id: string
-  price: string
+  price: number
   logo: string
   carrier: string
   duration: number

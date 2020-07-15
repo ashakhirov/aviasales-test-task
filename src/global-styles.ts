@@ -15,6 +15,7 @@ export const GlobalStyles = createGlobalStyle`
     --white: #fff;
     --blue: #2196f3;
     --catskill: #f3f7fa;
+    --progress: #d95c5c;
 
     /* button */
     --button-border: 1px solid #dfe5ec;

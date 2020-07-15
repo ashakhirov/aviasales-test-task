@@ -3,7 +3,6 @@ import { all, call, take, put, fork, delay, cancel } from 'redux-saga/effects'
 
 import { RootState } from 'app/root-reducer'
 import { selectSortingValue } from 'features/sorting'
-import { compareNumbers } from 'lib/number'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
 import { transformTicket } from './lib/transformer'
@@ -44,7 +43,6 @@ const ticketsSlice = createSlice({
     fetchTicketsFailure(state, action: PayloadAction<string>) {
       state.entities = [...state.entities]
       state.isLoading = false
-      state.polling = false
       state.error = action.payload
     },
   },
@@ -68,6 +66,11 @@ export const selectIsTicketsFetching = createSelector(
   (tickets) => tickets.isLoading,
 )
 
+export const selectIsTicketsPolling = createSelector(
+  [selectTickets],
+  (tickets) => tickets.polling,
+)
+
 export const selectTicketsEntities = createSelector(
   [selectTickets],
   (tickets) => tickets.entities,
@@ -76,9 +79,7 @@ export const selectTicketsEntities = createSelector(
 export const selectSortedTickets = createSelector(
   [selectTicketsEntities, selectSortingValue],
   (tickets, value) =>
-    [...tickets].sort((current, next) =>
-      compareNumbers(current[value], next[value]),
-    ),
+    [...tickets].sort((current, next) => current[value] - next[value]),
 )
 
 // Sagas

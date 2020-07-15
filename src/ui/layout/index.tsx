@@ -8,6 +8,7 @@ export const Layout: React.FC = ({ children }) => (
 )
 
 const Scaffold = styled.div`
+  position: relative;
   width: 100%;
 `
 

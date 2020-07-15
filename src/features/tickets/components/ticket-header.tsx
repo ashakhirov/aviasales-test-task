@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Ticket } from '../types'
+import { DEFAULT_PRICE_LOCALE } from '../constants'
 
 type Props = Omit<Ticket, 'id' | 'segments' | 'duration'>
 
@@ -9,7 +10,7 @@ export const TicketHeader: React.FC<Props> = React.memo(
   ({ price, logo, carrier }) => {
     return (
       <Wrapper>
-        <Price>{price} Р</Price>
+        <Price>{price.toLocaleString(DEFAULT_PRICE_LOCALE)} Р</Price>
         <LogoContainer>
           <Logo src={logo} alt={carrier} />
         </LogoContainer>
