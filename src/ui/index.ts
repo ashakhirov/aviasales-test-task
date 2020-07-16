@@ -1,4 +1,5 @@
 export { AppBar } from './app-bar'
+export { Checkbox } from './checkbox'
 export { Layout } from './layout'
 export { Main } from './main'
 export { Progress } from './progress'

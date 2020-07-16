@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     --border-radius: 6px;
 
     /* colors */
-    --black: #000;
+    --black: #4a4a4a;
     --gray: #a0b0b9;
     --white: #fff;
     --blue: #2196f3;
@@ -39,7 +39,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 12px;
     font-weight: 600;
     line-height: 1.7;
-    color: var(--text-color);
+    color: var(--primary-text-color);
     background-color: var(--bg-color);
   }
 
