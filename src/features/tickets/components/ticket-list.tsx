@@ -13,9 +13,7 @@ export const TicketList: React.FC = () => {
   return (
     <TicketListTemplate>
       {isLoading
-        ? Array.from({ length: 5 }, (_, idx) => ({ id: idx })).map((_, idx) => (
-            <Skeleton key={idx} />
-          ))
+        ? [...Array(5)].map((_, idx) => <Skeleton key={idx} />)
         : tickets
             .slice(0, 5)
             .map((ticket) => <TicketCard key={ticket.id} ticket={ticket} />)}
