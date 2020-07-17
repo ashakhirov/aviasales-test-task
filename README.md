@@ -19,3 +19,4 @@ npm start
 - JavaScript, React(v16)
 - Styled-components - для стилизации компонентов
 - Redux Toolkit - для хранения данных и доступа к ним из любой точки приложения
+- Redux-saga - для сайд эффектов
