@@ -5,7 +5,6 @@ export type SearchIdResponse = {
 }
 
 export type Segment = {
-  id: string
   origin: string
   destination: string
   date: Date
@@ -13,14 +12,13 @@ export type Segment = {
   duration: number
 }
 
-export type SegmentEntity = Omit<Segment, 'id'>
-
 export type Ticket = {
   id: string
   price: number
   logo: string
   carrier: string
   duration: number
+  stopCounts: number[]
   segments: Segment[]
 }
 

@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Ticket } from '../types'
-import { DEFAULT_PRICE_LOCALE } from '../constants'
+import { DEFAULT_PRICE_LOCALE } from 'consts'
 
-type Props = Omit<Ticket, 'id' | 'segments' | 'duration'>
+type OmitProps = 'id' | 'segments' | 'duration' | 'stopCounts'
+
+type Props = Omit<Ticket, OmitProps>
 
 export const TicketHeader: React.FC<Props> = React.memo(
   ({ price, logo, carrier }) => {

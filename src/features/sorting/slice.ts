@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, createSelector } from '@reduxjs/toolkit'
 
 import { RootState } from 'app/root-reducer'
 

@@ -19,6 +19,14 @@ const generateLogoLink = (carrier: string) =>
   `${process.env.CDN_URL}/${carrier}.png`
 
 /**
+ * generate a list of stops length
+ * @param {Segment[]} segments segments
+ * @returns {number} stop counts
+ */
+const findStopCounts = (segments: Segment[]) =>
+  segments.reduce<number[]>((count, { stops }) => [...count, stops.length], [])
+
+/**
  * prepare ticket for the view
  * @param {TicketEntity} ticket ticket from the backend
  * @returns {Ticket} prepared ticket
@@ -29,5 +37,6 @@ export const transformTicket = (ticket: TicketEntity): Ticket => {
     id: nanoid(),
     logo: generateLogoLink(ticket.carrier),
     duration: calculateTotalDuration(ticket.segments),
+    stopCounts: findStopCounts(ticket.segments),
   }
 }

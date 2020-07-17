@@ -24,8 +24,8 @@
     "lib/*": ["lib/*"],
     "api/*": ["api/*"],
     "ui/*": ["ui/*"],
-    "assets/*": ["assets/*"]
+    "consts/*": ["./consts.ts"]
   },
   "types": ["./typings/svg"],
-  "exclude": ["build", "config"]
+  "exclude": ["build", "config", "node_modules"]
 }

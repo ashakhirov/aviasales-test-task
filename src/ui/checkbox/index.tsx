@@ -1,25 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
 
-type Props = {
-  id: string
-  checked: boolean
-  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+import { Filter } from 'features/filtering'
+
+type Props = Filter & {
+  handleCheckboxChange: (id: string) => void
 }
 
-export const Checkbox: React.FC<Props> = ({
-  children,
-  id,
-  checked,
-  handleCheckboxChange,
-}) => (
-  <Label htmlFor={id}>
-    <HiddenCheckbox id={id} checked={checked} onChange={handleCheckboxChange} />
-    <StyledCheckbox checked={checked}>
-      <Icon />
-    </StyledCheckbox>
-    {children}
-  </Label>
+export const Checkbox: React.FC<Props> = React.memo(
+  ({ id, checked, label, handleCheckboxChange }) => (
+    <Label htmlFor={id}>
+      <HiddenCheckbox
+        id={id}
+        checked={checked}
+        onChange={() => handleCheckboxChange(id)}
+      />
+      <StyledCheckbox checked={checked}>
+        <Icon />
+      </StyledCheckbox>
+      {label}
+    </Label>
+  ),
 )
 
 const Icon: React.FC = () => (

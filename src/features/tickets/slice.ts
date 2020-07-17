@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice, createSelector } from '@reduxjs/toolkit'
 import { all, call, take, put, fork, delay, cancel } from 'redux-saga/effects'
 
+import { SECONDS } from 'consts'
 import { RootState } from 'app/root-reducer'
 import { selectSortingValue } from 'features/sorting'
+import { selectActivatedStops, updateFilters } from 'features/filtering'
 import { getSearchId, getTickets } from './api'
 import { Ticket, TicketsState } from './types'
 import { transformTicket } from './lib/transformer'
-import { SECONDS } from './constants'
 
 const initialState: TicketsState = {
   entities: [],
@@ -26,8 +27,6 @@ const ticketsSlice = createSlice({
     fetchTicketsStart(state) {
       state.isLoading = true
       state.polling = true
-      state.entities = []
-      state.error = null
     },
     fetchTicketsSuccess: {
       reducer(state, action: PayloadAction<Ticket[]>) {
@@ -35,14 +34,13 @@ const ticketsSlice = createSlice({
         state.entities = [...state.entities, ...action.payload]
         state.error = null
       },
-      prepare(tickets) {
+      prepare(tickets: Ticket[]) {
         const transformedTickets = tickets.map(transformTicket)
         return { payload: transformedTickets }
       },
     },
     fetchTicketsFailure(state, action: PayloadAction<string>) {
       state.entities = [...state.entities]
-      state.isLoading = false
       state.error = action.payload
     },
   },
@@ -59,7 +57,7 @@ export const {
 } = ticketsSlice.actions
 
 // Selectors
-const selectTickets = (state: RootState): TicketsState => state.tickets
+const selectTickets = (state: RootState) => state.tickets
 
 export const selectIsTicketsFetching = createSelector(
   [selectTickets],
@@ -76,8 +74,17 @@ export const selectTicketsEntities = createSelector(
   (tickets) => tickets.entities,
 )
 
+export const selectFilteredTickets = createSelector(
+  [selectTicketsEntities, selectActivatedStops],
+  (tickets, activatedStops) => {
+    return [...tickets].filter((ticket) =>
+      ticket.stopCounts.every((stop) => activatedStops.includes(stop)),
+    )
+  },
+)
+
 export const selectSortedTickets = createSelector(
-  [selectTicketsEntities, selectSortingValue],
+  [selectFilteredTickets, selectSortingValue],
   (tickets, value) =>
     [...tickets].sort((current, next) => current[value] - next[value]),
 )
@@ -100,6 +107,7 @@ function* fetchTickets(searchId: string) {
 
       if (!stop) {
         yield put(fetchTicketsSuccess(tickets))
+        yield put(updateFilters(tickets))
       } else {
         yield put(pollingStop())
       }

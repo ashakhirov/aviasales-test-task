@@ -2,8 +2,11 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
-import App from './app'
+import { fetchTicketsStart } from 'features/tickets'
 import { store } from './app/store'
+import App from './app'
+
+store.dispatch(fetchTicketsStart())
 
 render(
   <Provider store={store}>

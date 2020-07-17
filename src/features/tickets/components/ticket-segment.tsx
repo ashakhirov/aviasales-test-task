@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { formatDuration, formatTimeInterval } from 'lib/date'
-import { DEFAULT_TIME_ZONE, STOPS, WITHOUT_STOPS } from '../constants'
-import { Segment } from '../types'
 import { createNounDeclension } from 'lib/string'
+import { formatDuration, formatTimeInterval } from 'lib/date'
+import { DEFAULT_TIME_ZONE, STOPS, WITHOUT_STOPS } from 'consts'
+import { Segment } from '../types'
 
 type Props = {
   segment: Segment

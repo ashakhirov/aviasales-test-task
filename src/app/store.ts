@@ -6,8 +6,8 @@ import { rootSaga } from './root-saga'
 
 const customizedMiddleware = getDefaultMiddleware({
   thunk: false,
-  serializableCheck: false, // TODO false -> true
-  immutableCheck: false, // TODO false -> true
+  serializableCheck: true,
+  immutableCheck: true,
 })
 
 const sagaMiddleware = createSagaMiddleware()

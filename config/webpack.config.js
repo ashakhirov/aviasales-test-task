@@ -150,7 +150,7 @@ module.exports = {
       ui: paths.appUi,
       api: paths.appApi,
       lib: paths.appLib,
-      assets: paths.appAssets,
+      consts: paths.appConsts,
     },
   },
   resolveLoader: {

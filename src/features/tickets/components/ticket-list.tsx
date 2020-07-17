@@ -19,6 +19,9 @@ export const TicketList: React.FC = () => {
         : tickets
             .slice(0, 5)
             .map((ticket) => <TicketCard key={ticket.id} ticket={ticket} />)}
+      {tickets.length === 0 && !isLoading && (
+        <NothingFound>Ничего не найдено по заданным вами фильтрам</NothingFound>
+      )}
     </TicketListTemplate>
   )
 }
@@ -28,4 +31,9 @@ const TicketListTemplate = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+`
+
+const NothingFound = styled.h2`
+  font-size: 18px;
+  text-align: center;
 `
