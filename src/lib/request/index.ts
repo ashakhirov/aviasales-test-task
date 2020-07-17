@@ -1,3 +1,5 @@
+const { API_URL } = process.env
+
 type Method = 'get'
 
 type RequestAttr = {
@@ -19,7 +21,7 @@ export type Answer<T = unknown> = {
  */
 export const request: Request = async ({ method, path, params }) => {
   const options: RequestInit = { method: method.toUpperCase() }
-  const url = new URL(`${process.env.API_URL}/${path}`)
+  const url = new URL(path, 'https://front-test.beta.aviasales.ru/')
 
   if (params) {
     url.search = new URLSearchParams(params).toString()

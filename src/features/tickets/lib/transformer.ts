@@ -16,7 +16,7 @@ const calculateTotalDuration = (segments: Segment[]): number =>
  * @returns {string} logo link
  */
 const generateLogoLink = (carrier: string) =>
-  `${process.env.CDN_URL}/${carrier}.png`
+  `//pics.avs.io/99/36/${carrier}.png`
 
 /**
  * generate a list of stops length
