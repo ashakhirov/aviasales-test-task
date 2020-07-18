@@ -83,6 +83,8 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@tanem/react-nprogress": "^3.0.34",
     "core-js": "^3.6.5",
+    "effector": "^21.0.3",
+    "effector-react": "^21.0.4",
     "nanoid": "^3.1.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

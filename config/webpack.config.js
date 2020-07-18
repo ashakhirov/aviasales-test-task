@@ -306,6 +306,6 @@ module.exports = {
       },
     }),
     useTypeScript && new ForkTsCheckerWebpackPlugin(),
-    // isEnvProduction && new BundleAnalyzerPlugin(),
+    isEnvProduction && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
 }
