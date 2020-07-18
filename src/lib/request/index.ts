@@ -21,7 +21,7 @@ export type Answer<T = unknown> = {
  */
 export const request: Request = async ({ method, path, params }) => {
   const options: RequestInit = { method: method.toUpperCase() }
-  const url = new URL(path, 'https://front-test.beta.aviasales.ru/')
+  const url = new URL(path, process.env.API_URL)
 
   if (params) {
     url.search = new URLSearchParams(params).toString()
