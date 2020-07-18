@@ -41,6 +41,8 @@
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "dotenv-webpack": "^1.8.0",
+    "effector-inspector": "^0.2.2",
+    "effector-logger": "^0.6.1",
     "error-overlay-webpack-plugin": "^0.4.1",
     "eslint": "^7.3.1",
     "eslint-config-airbnb": "^18.2.0",
