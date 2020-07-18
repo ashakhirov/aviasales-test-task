@@ -12,12 +12,12 @@ const App: React.FC = () => {
     <>
       <GlobalStyles />
       <Layout>
-        <LoadingBar />
+        {/* <LoadingBar /> */}
         <AppBar />
         <Main>
-          <Filtering />
-          <Sorting />
-          <TicketList />
+          {/* <Filtering /> */}
+          {/* <Sorting /> */}
+          {/* <TicketList /> */}
         </Main>
       </Layout>
     </>
