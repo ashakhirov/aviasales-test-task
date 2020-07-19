@@ -1,22 +1,23 @@
 import React from 'react'
+import { useStore } from 'effector-react'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
 
 import { Skeleton } from 'ui'
 import { TicketCard } from './ticket-card'
-import { selectIsTicketsFetching, selectSortedTickets } from '../slice'
+import { $tickets, $isFirstChunkLoaded, $isLoading } from '../model'
 
 export const TicketList: React.FC = () => {
-  const isLoading = useSelector(selectIsTicketsFetching)
-  const tickets = useSelector(selectSortedTickets)
+  const isChunkLoaded = useStore($isFirstChunkLoaded)
+  const isLoading = useStore($isLoading)
+  const tickets = useStore($tickets)
 
   return (
     <TicketListTemplate>
-      {isLoading
-        ? [...Array(5)].map((_, idx) => <Skeleton key={idx} />)
-        : tickets
+      {isChunkLoaded
+        ? tickets
             .slice(0, 5)
-            .map((ticket) => <TicketCard key={ticket.id} ticket={ticket} />)}
+            .map((ticket) => <TicketCard key={ticket.id} ticket={ticket} />)
+        : [...Array(5)].map((_, idx) => <Skeleton key={idx} />)}
       {tickets.length === 0 && !isLoading && (
         <NothingFound>Ничего не найдено по заданным вами фильтрам</NothingFound>
       )}

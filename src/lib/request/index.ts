@@ -1,5 +1,3 @@
-const { API_URL } = process.env
-
 type Method = 'get'
 
 type RequestAttr = {
@@ -8,13 +6,7 @@ type RequestAttr = {
   params?: Record<string, string>
 }
 
-type Request = <T>({ method, path, params }: RequestAttr) => Promise<Answer<T>>
-
-export type Answer<T = unknown> = {
-  ok: boolean
-  status: number
-  body: T
-}
+type Request = <T>({ method, path, params }: RequestAttr) => Promise<T>
 
 /**
  * make request

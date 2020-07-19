@@ -1,14 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useStore } from 'effector-react'
 import { useNProgress } from '@tanem/react-nprogress'
 
 import { Progress } from 'ui'
-import { selectIsTicketsPolling } from '../slice'
+import { $isLoading } from '../model'
 
 export const LoadingBar: React.FC = () => {
-  const isAnimating = useSelector(selectIsTicketsPolling)
+  const isLoading = useStore($isLoading)
   const { animationDuration, progress, isFinished } = useNProgress({
-    isAnimating,
+    isAnimating: isLoading,
   })
 
   return (

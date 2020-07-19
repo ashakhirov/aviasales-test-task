@@ -1,7 +1,7 @@
 export type SearchId = string
 
 export type SearchIdResponse = {
-  searchId: string
+  searchId: SearchId
 }
 
 export type Segment = {

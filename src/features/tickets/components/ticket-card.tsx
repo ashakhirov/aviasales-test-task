@@ -9,25 +9,20 @@ type Props = {
   ticket: Ticket
 }
 
-export const TicketCard: React.FC<Props> = React.memo(({ ticket }) => {
-  return (
-    <TicketCardTemplate>
-      <TicketHeader
-        price={ticket.price}
-        logo={ticket.logo}
-        carrier={ticket.carrier}
-      />
-      <TicketBody>
-        {ticket.segments.map((segment) => (
-          <TicketSegment
-            key={segment.date.toLocaleString()}
-            segment={segment}
-          />
-        ))}
-      </TicketBody>
-    </TicketCardTemplate>
-  )
-})
+export const TicketCard: React.FC<Props> = React.memo(({ ticket }) => (
+  <TicketCardTemplate>
+    <TicketHeader
+      price={ticket.price}
+      logo={ticket.logo}
+      carrier={ticket.carrier}
+    />
+    <TicketBody>
+      {ticket.segments.map((segment) => (
+        <TicketSegment key={segment.date.toLocaleString()} segment={segment} />
+      ))}
+    </TicketBody>
+  </TicketCardTemplate>
+))
 
 const TicketCardTemplate = styled.li`
   margin-bottom: 20px;

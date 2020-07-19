@@ -27,16 +27,15 @@ const findStopCounts = (segments: Segment[]) =>
   segments.reduce<number[]>((count, { stops }) => [...count, stops.length], [])
 
 /**
- * prepare ticket for the view
- * @param {TicketEntity} ticket ticket from the backend
- * @returns {Ticket} prepared ticket
+ * transform tickets for the view
+ * @param {TicketEntity[]} tickets tickets from the backend
+ * @returns {Tickets} transformed tickets
  */
-export const transformTicket = (ticket: TicketEntity): Ticket => {
-  return {
+export const transformTickets = (tickets: TicketEntity[]): Ticket[] =>
+  tickets.map((ticket) => ({
     ...ticket,
     id: nanoid(),
     logo: generateLogoLink(ticket.carrier),
     duration: calculateTotalDuration(ticket.segments),
     stopCounts: findStopCounts(ticket.segments),
-  }
-}
+  }))
