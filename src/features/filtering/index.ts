@@ -1,8 +1,3 @@
 export { Filtering } from './components/filtering'
-export {
-  filteringReducer,
-  selectActivatedStops,
-  selectFilters,
-  updateFilters,
-} from './slice'
-export type { Filter } from './slice'
+export { filtersUpdated, $activatedStops } from './model'
+export type { Filter } from './model'

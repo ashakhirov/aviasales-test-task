@@ -1,18 +1,14 @@
 import React from 'react'
+import { useStore } from 'effector-react'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
 
 import { Checkbox } from 'ui'
-import { selectFilters, switchFilters } from '../slice'
+import { $filters, filterSwitched } from '../model'
 
 export const StopsFilter = () => {
-  const dispatch = useDispatch()
-  const filters = useSelector(selectFilters)
+  const filters = useStore($filters)
 
-  const onChange = React.useCallback(
-    (id: string) => dispatch(switchFilters(id)),
-    [dispatch],
-  )
+  const onChange = React.useCallback((id: string) => filterSwitched(id), [])
 
   return (
     <Container>

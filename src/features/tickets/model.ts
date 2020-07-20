@@ -10,6 +10,7 @@ import {
 } from 'effector-logger'
 
 import { $activeSortingId } from 'features/sorting'
+import { filtersUpdated, $activatedStops } from 'features/filtering'
 import { transformTickets } from './lib/transformer'
 import { getTickets, getSearchId } from './api'
 import { Ticket, SearchId } from './types'
@@ -41,9 +42,14 @@ $tickets.on(ticketsUpdated, (state, tickets) => [...state, ...tickets])
 
 export const $sortingTickets = combine(
   $tickets,
+  $activatedStops,
   $activeSortingId,
-  (tickets, sortingId) =>
-    [...tickets].sort((current, next) => current[sortingId] - next[sortingId]),
+  (tickets, activatedStops, sortingId) =>
+    [...tickets]
+      .filter((ticket) =>
+        ticket.stopCounts.every((stop) => activatedStops.includes(stop)),
+      )
+      .sort((current, next) => current[sortingId] - next[sortingId]),
 )
 
 /**
@@ -71,4 +77,9 @@ sample({
 forward({
   from: $searchId,
   to: loadTicketsFx,
+})
+
+forward({
+  from: ticketsUpdated,
+  to: filtersUpdated,
 })
