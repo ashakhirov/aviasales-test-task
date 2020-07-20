@@ -1,2 +1,2 @@
 export { Sorting } from './components/sorting'
-export { sortingReducer, selectSortingValue } from './slice'
+export { $activeSortingId } from './model'

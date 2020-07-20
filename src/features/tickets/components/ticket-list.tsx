@@ -4,12 +4,12 @@ import styled from 'styled-components'
 
 import { Skeleton } from 'ui'
 import { TicketCard } from './ticket-card'
-import { $tickets, $isFirstChunkLoaded, $isLoading } from '../model'
+import { $sortingTickets, $isFirstChunkLoaded, $isLoading } from '../model'
 
 export const TicketList: React.FC = () => {
   const isChunkLoaded = useStore($isFirstChunkLoaded)
   const isLoading = useStore($isLoading)
-  const tickets = useStore($tickets)
+  const tickets = useStore($sortingTickets)
 
   return (
     <TicketListTemplate>

@@ -6,11 +6,13 @@ import {
   guard,
   forward,
   merge,
+  combine,
 } from 'effector-logger'
 
-import { Ticket, SearchId } from './types'
-import { getTickets, getSearchId } from './api'
+import { $activeSortingId } from 'features/sorting'
 import { transformTickets } from './lib/transformer'
+import { getTickets, getSearchId } from './api'
+import { Ticket, SearchId } from './types'
 
 const ticketsUpdated = createEvent<Ticket[]>()
 const handleTransformTickets = ticketsUpdated.prepend(transformTickets)
@@ -33,9 +35,16 @@ const loadMore = guard(loadTicketsFx.doneData, {
 })
 
 $searchId.on(loadSearchIdFx.doneData, (_, { searchId }) => searchId)
-$tickets.on(ticketsUpdated, (state, tickets) => [...state, ...tickets])
 $isLoading.on(loadingStopped, () => false)
 $isFirstChunkLoaded.on($tickets, (_, tickets) => tickets.length > 0)
+$tickets.on(ticketsUpdated, (state, tickets) => [...state, ...tickets])
+
+export const $sortingTickets = combine(
+  $tickets,
+  $activeSortingId,
+  (tickets, sortingId) =>
+    [...tickets].sort((current, next) => current[sortingId] - next[sortingId]),
+)
 
 /**
  * transform ticket chunks after they're received

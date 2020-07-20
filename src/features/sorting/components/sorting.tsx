@@ -1,70 +1,38 @@
 import React from 'react'
-import { nanoid } from 'nanoid'
+import { useList } from 'effector-react'
 import styled, { css } from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { toggleSorting, selectSortingValue, SortingValue } from '../slice'
+import { SortingTab, $sortingTabs, handleSortingToggled } from '../model'
 
-type TabProps = {
-  title: string
-  value: SortingValue
+export const Sorting: React.FC = () => (
+  <Tabs>
+    {useList($sortingTabs, ({ id, title, active }) => (
+      <Tab key={id} id={id} title={title} active={active} />
+    ))}
+  </Tabs>
+)
+
+const Tab: React.FC<SortingTab> = ({ id, title, active }) => (
+  <Item>
+    <Button
+      id={id}
+      type="button"
+      active={active}
+      onClick={handleSortingToggled}
+    >
+      {title}
+    </Button>
+  </Item>
+)
+
+type ButtonProps = {
   active: boolean
 }
 
-type ItemProps = {
-  active: boolean
-}
-
-const tabs: { id: string; title: string; value: SortingValue }[] = [
-  {
-    id: nanoid(),
-    title: 'Самый дешевый',
-    value: 'price',
-  },
-  {
-    id: nanoid(),
-    title: 'Самый быстрый',
-    value: 'duration',
-  },
-]
-
-export const Sorting: React.FC = () => {
-  const activeTab = useSelector(selectSortingValue)
-
-  return (
-    <Tabs>
-      {tabs.map(({ id, value, title }) => (
-        <Tab
-          key={id}
-          active={activeTab === value}
-          value={value}
-          title={title}
-        />
-      ))}
-    </Tabs>
-  )
-}
-
-export const Tab: React.FC<TabProps> = ({ title, active, value }) => {
-  const dispatch = useDispatch()
-
-  const handleClick = () => {
-    dispatch(toggleSorting(value))
-  }
-
-  return (
-    <Item>
-      <Button type="button" active={active} onClick={handleClick}>
-        {title}
-      </Button>
-    </Item>
-  )
-}
-
-const Button = styled.button.attrs<ItemProps>(({ active }) => ({
+const Button = styled.button.attrs<ButtonProps>(({ active }) => ({
   active,
   type: 'button',
-}))<ItemProps>`
+}))<ButtonProps>`
   width: 100%;
   height: 50px;
   border: 1px solid #dfe5ec;
@@ -74,6 +42,7 @@ const Button = styled.button.attrs<ItemProps>(({ active }) => ({
   text-transform: uppercase;
   background-color: var(--white);
   outline: none;
+  cursor: pointer;
 
   &:focus {
     box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.3);

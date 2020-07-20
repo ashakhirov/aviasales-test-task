@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root'
 
 import { Layout, AppBar, Main } from 'ui'
 // import { Filtering } from 'features/filtering'
-// import { Sorting } from 'features/sorting'
+import { Sorting } from 'features/sorting'
 import { TicketList, LoadingBar } from 'features/tickets'
 import { GlobalStyles } from '../global-styles'
 import { AppGate } from './model'
@@ -18,7 +18,7 @@ const App: React.FC = () => {
         <AppBar />
         <Main>
           {/* <Filtering /> */}
-          {/* <Sorting /> */}
+          <Sorting />
           <TicketList />
         </Main>
       </Layout>
