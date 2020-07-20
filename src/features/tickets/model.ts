@@ -7,7 +7,7 @@ import {
   forward,
   merge,
   combine,
-} from 'effector-logger'
+} from 'effector'
 
 import { $activeSortingId } from 'features/sorting'
 import { filtersUpdated, $activatedStops } from 'features/filtering'

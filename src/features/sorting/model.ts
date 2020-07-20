@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStore, createEvent } from 'effector-logger'
+import { createStore, createEvent } from 'effector'
 
 export type SortingId = 'price' | 'duration'
 
@@ -31,8 +31,6 @@ export const $sortingTabs = createStore<SortingTab[]>([
 export const $activeSortingId = $sortingTabs.map<SortingId>((tabs) =>
   tabs.reduce((id, nextTab) => (nextTab.active ? nextTab.id : id), tabs[0].id),
 )
-
-$activeSortingId.watch(console.log)
 
 $sortingTabs.on(sortingToggled, (state, id) =>
   state.map((item) => ({ ...item, active: item.id === id })),

@@ -1,4 +1,4 @@
-import { forward } from 'effector-logger'
+import { forward } from 'effector'
 import { createGate } from 'effector-react'
 
 import { loadSearchIdFx } from 'features/tickets'

@@ -1,4 +1,4 @@
-import { createStore, createEvent } from 'effector-logger'
+import { createStore, createEvent } from 'effector'
 
 import { WITHOUT_STOPS, STOPS } from 'consts'
 import { createNounDeclension } from 'lib/string'
