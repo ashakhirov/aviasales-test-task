@@ -17,6 +17,11 @@ const Template = styled.aside`
   grid-row: span 2;
   height: 252px;
   background-color: #fff;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 1 / 2;
+  }
 `
 
 const Title = styled.span`

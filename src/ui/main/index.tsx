@@ -10,4 +10,9 @@ const MainTemplate = styled.main`
   grid-template-columns: 1fr minmax(auto, 2fr);
   grid-template-rows: auto auto;
   grid-gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
 `

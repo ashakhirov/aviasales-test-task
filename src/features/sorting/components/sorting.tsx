@@ -65,6 +65,11 @@ const Tabs = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 2 / 3;
+  }
 `
 
 const Item = styled.li`
