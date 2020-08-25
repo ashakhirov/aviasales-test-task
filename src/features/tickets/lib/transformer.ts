@@ -4,32 +4,32 @@ import { TicketEntity, Ticket, Segment } from '../types'
 
 /**
  * calculate total duration of a flight
- * @param {Array<Segment>} segments - ticket segments
- * @returns {number} - total duration of a flight
+ * @param segments - ticket segments
+ * @returns total duration of a flight
  */
 const calculateTotalDuration = (segments: Segment[]): number =>
   segments.reduce((acc, { duration }) => acc + duration, 0)
 
 /**
  * generate logo
- * @param {string} carrier carrier abbreviated name of the carrier
- * @returns {string} logo link
+ * @param carrier - carrier abbreviated name of the carrier
+ * @returns logo link
  */
 const generateLogoLink = (carrier: string) =>
   `${process.env.CDN_URL}/${carrier}.png`
 
 /**
  * generate a list of stops length
- * @param {Segment[]} segments segments
- * @returns {number} stop counts
+ * @param segments - segments
+ * @returns stop counts
  */
 const findStopCounts = (segments: Segment[]) =>
   segments.reduce<number[]>((count, { stops }) => [...count, stops.length], [])
 
 /**
  * transform tickets for the view
- * @param {TicketEntity[]} tickets tickets from the backend
- * @returns {Tickets} transformed tickets
+ * @param tickets - tickets from the backend
+ * @returns transformed tickets
  */
 export const transformTickets = (tickets: TicketEntity[]): Ticket[] =>
   tickets.map((ticket) => ({

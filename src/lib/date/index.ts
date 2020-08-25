@@ -1,7 +1,7 @@
 /**
  *  format duration from minutes to hh:mm
- * @param {number} timeInMin
- * @returns {string} formated string hh:mm
+ * @param timeInMin
+ * @returns formated string hh:mm
  */
 export const formatDuration = (timeInMin = 0): string => {
   const hh = Math.floor(timeInMin / 60)
@@ -12,9 +12,9 @@ export const formatDuration = (timeInMin = 0): string => {
 
 /**
  * get time from date in string format
- * @param {number} date date that needs format
- * @param {string} timezone timezone
- * @returns {string} time in string format
+ * @param date - date that needs format
+ * @param timezone - timezone
+ * @returns time in string format
  */
 export const getTimeFromDate = (date: number, timezone = 'UTC'): string => {
   const options = {
@@ -28,10 +28,10 @@ export const getTimeFromDate = (date: number, timezone = 'UTC'): string => {
 
 /**
  * format time to `startTime - endTime`
- * @param {Date} date initial date
- * @param {number} duration duration in minutes
- * @param {string} timezone timezone
- * @returns {string} `startTime - endTime`
+ * @param date - initial date
+ * @param duration - duration in minutes
+ * @param timezone - timezone
+ * @returns`startTime - endTime`
  */
 export const formatTimeInterval = (
   date: Date,
