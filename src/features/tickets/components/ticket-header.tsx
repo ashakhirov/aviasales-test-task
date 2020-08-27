@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import { Ticket } from '../types'
 import { useStore } from 'effector-react'
-import { $selectedCurrency } from 'features/filtering/model'
+
+import { $selectedCurrency } from '~/features/filtering'
 import { formatPrice } from '../lib/format'
+import { Ticket } from '../types'
 
 type OmitProps = 'id' | 'segments' | 'duration' | 'stopCounts'
 

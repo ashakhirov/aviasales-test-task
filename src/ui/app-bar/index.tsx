@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { ReactComponent as Logo } from 'src/logo.svg'
+import { ReactComponent as Logo } from '~/logo.svg'
 
 export const AppBar: React.FC = () => (
   <Header>

@@ -2,9 +2,9 @@ import React from 'react'
 import { createStore, createEvent, createEffect } from 'effector'
 import { nanoid } from 'nanoid'
 
-import { WITHOUT_STOPS, STOPS } from 'consts'
-import { createNounDeclension } from 'lib/string'
-import { Ticket } from 'features/tickets'
+import { WITHOUT_STOPS, STOPS } from '~/consts'
+import { createNounDeclension } from '~/lib/string'
+import { Ticket } from '~/features/tickets'
 import { getCurrencyRates } from './api'
 import { Stop, Currency } from './types'
 

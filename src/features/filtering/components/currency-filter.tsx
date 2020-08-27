@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useStore } from 'effector-react'
 
-import { Radio } from 'ui'
+import { Radio } from '~/ui'
 import { $currencies, currencySwitched } from '../model'
 
 export const Currency: React.FC = () => {

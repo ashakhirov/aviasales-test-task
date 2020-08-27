@@ -1,4 +1,4 @@
-import { request } from 'lib/request'
+import { request } from '~/lib/request'
 
 import { Rates } from './types'
 

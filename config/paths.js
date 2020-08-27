@@ -20,13 +20,6 @@ const resolveModule = (resolveFn, filePath) => {
 }
 
 module.exports = {
-  appFeatures: resolveApp('src/features'),
-  appLib: resolveApp('src/lib'),
-  appUi: resolveApp('src/ui'),
-  appApi: resolveApp('src/api'),
-  appConsts: resolveApp('src/consts.ts'),
-  dotenv: resolveApp('.env'),
-  appPath: resolveApp('.'),
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),

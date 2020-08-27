@@ -26,12 +26,10 @@ export const $sortingTabs = createStore<SortingTab[]>([
     title: 'Самый быстрый',
     active: false,
   },
-])
+]).on(sortingToggled, (state, id) =>
+  state.map((item) => ({ ...item, active: item.id === id })),
+)
 
 export const $activeSortingId = $sortingTabs.map<SortingId>((tabs) =>
   tabs.reduce((id, nextTab) => (nextTab.active ? nextTab.id : id), tabs[0].id),
-)
-
-$sortingTabs.on(sortingToggled, (state, id) =>
-  state.map((item) => ({ ...item, active: item.id === id })),
 )

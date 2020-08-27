@@ -9,8 +9,8 @@ import {
   combine,
 } from 'effector'
 
-import { $activeSortingId } from 'features/sorting'
-import { stopsUpdated, $activatedStops } from 'features/filtering'
+import { $activeSortingId } from '~/features/sorting'
+import { stopsUpdated, $activatedStops } from '~/features/filtering'
 import { transformTickets } from './lib/transformer'
 import { getTickets, getSearchId } from './api'
 import { Ticket, SearchId } from './types'

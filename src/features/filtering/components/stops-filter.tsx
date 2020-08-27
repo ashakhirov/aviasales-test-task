@@ -2,7 +2,7 @@ import React from 'react'
 import { useStore } from 'effector-react'
 import styled from 'styled-components'
 
-import { Checkbox } from 'ui'
+import { Checkbox } from '~/ui'
 import { $stops, stopsSwitched } from '../model'
 
 export const StopsFilter = () => {

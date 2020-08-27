@@ -2,7 +2,7 @@ import React from 'react'
 import { useStore } from 'effector-react'
 import styled from 'styled-components'
 
-import { Skeleton } from 'ui'
+import { Skeleton } from '~/ui'
 import { TicketCard } from './ticket-card'
 import { $sortingTickets, $isFirstChunkLoaded, $isLoading } from '../model'
 

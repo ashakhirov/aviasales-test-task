@@ -145,12 +145,7 @@ module.exports = {
     plugins: [PnpWebpackPlugin],
     alias: {
       'react-dom': '@hot-loader/react-dom',
-      src: paths.appSrc,
-      features: paths.appFeatures,
-      ui: paths.appUi,
-      api: paths.appApi,
-      lib: paths.appLib,
-      consts: paths.appConsts,
+      '~': paths.appSrc,
     },
   },
   resolveLoader: {

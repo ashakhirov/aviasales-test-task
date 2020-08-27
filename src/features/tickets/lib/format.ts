@@ -1,5 +1,5 @@
-import { Currency } from 'features/filtering'
-import { PRICE_LOCALE } from 'consts'
+import { Currency } from '~/features/filtering'
+import { PRICE_LOCALE } from '~/consts'
 
 export const formatPrice = (price: number, currency?: Currency) => {
   const format = new Intl.NumberFormat(PRICE_LOCALE, {

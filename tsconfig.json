@@ -16,15 +16,10 @@
     "jsx": "react",
     "pretty": true,
     "sourceMap": true,
-    "baseUrl": "src"
-  },
-  "paths": {
-    "src/*": ["./*"],
-    "features/*": ["features/*"],
-    "lib/*": ["lib/*"],
-    "api/*": ["api/*"],
-    "ui/*": ["ui/*"],
-    "consts/*": ["./consts.ts"]
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "types": ["./typings/svg"],
   "exclude": ["build", "config", "node_modules"]

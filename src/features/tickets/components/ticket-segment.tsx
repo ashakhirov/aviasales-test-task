@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { createNounDeclension } from 'lib/string'
-import { formatDuration, formatTimeInterval } from 'lib/date'
-import { TIME_ZONE, STOPS, WITHOUT_STOPS } from 'consts'
+import { formatDuration, formatTimeInterval } from '~/lib/date'
+import { TIME_ZONE, STOPS, WITHOUT_STOPS } from '~/consts'
+import { createNounDeclension } from '~/lib/string'
 import { Segment } from '../types'
 
 type Props = {
