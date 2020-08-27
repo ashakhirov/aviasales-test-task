@@ -1,40 +1,35 @@
-import { createStore, createEvent } from 'effector'
+import React from 'react'
+import { createStore, createEvent, createEffect } from 'effector'
+import { nanoid } from 'nanoid'
 
 import { WITHOUT_STOPS, STOPS } from 'consts'
 import { createNounDeclension } from 'lib/string'
 import { Ticket } from 'features/tickets'
+import { getCurrencyRates } from './api'
+import { Stop, Currency } from './types'
 
-export type Filter = {
-  id: string
-  label: string
-  checked: boolean
-}
+export const stopsUpdated = createEvent<Ticket[]>()
 
-export const filtersUpdated = createEvent<Ticket[]>()
-export const filterSwitched = createEvent<string>()
+export const stopsSwitched = createEvent<string>()
 
-export const $filters = createStore<Filter[]>([
+export const currencySwitched = createEvent<
+  React.ChangeEvent<HTMLInputElement>
+>()
+
+export const currencyUpdated = currencySwitched.map(
+  (event) => event.target.value,
+)
+
+export const loadCurrencyRatesFx = createEffect({ handler: getCurrencyRates })
+
+export const $stops = createStore<Stop[]>([
   {
     id: '-1',
     label: 'Все',
     checked: true,
   },
 ])
-
-export const $activatedStops = $filters.map((state) =>
-  state
-    .slice(1)
-    .reduce<number[]>(
-      (stops, filter) =>
-        filter === undefined || !filter.checked
-          ? stops
-          : [...stops, Number(filter.id)],
-      [],
-    ),
-)
-
-$filters
-  .on(filtersUpdated, (state, tickets) => {
+  .on(stopsUpdated, (state, tickets) => {
     return tickets.reduce(
       (acc, ticket) => {
         const stopCounts = ticket.segments.reduce<number[]>(
@@ -65,7 +60,7 @@ $filters
       [...state],
     )
   })
-  .on(filterSwitched, (state, filterId) => {
+  .on(stopsSwitched, (state, filterId) => {
     const id = Number(filterId) + 1
     const isChecked = state[id].checked
 
@@ -88,3 +83,56 @@ $filters
 
     return newState
   })
+
+export const $activatedStops = $stops.map((state) =>
+  state
+    .slice(1)
+    .reduce<number[]>(
+      (stops, filter) =>
+        filter === undefined || !filter.checked
+          ? stops
+          : [...stops, Number(filter.id)],
+      [],
+    ),
+)
+
+export const $currencies = createStore<Currency[]>([
+  {
+    id: nanoid(),
+    label: 'RUB',
+    value: 'RUB',
+    checked: true,
+    rate: 1,
+  },
+  {
+    id: nanoid(),
+    label: 'USD',
+    value: 'USD',
+    checked: false,
+    rate: 1,
+  },
+  {
+    id: nanoid(),
+    label: 'EUR',
+    value: 'EUR',
+    checked: false,
+    rate: 1,
+  },
+])
+  .on(currencyUpdated, (filters, selectedCurrency) =>
+    [...filters].map((filter) => {
+      filter.checked = filter.value === selectedCurrency ? true : false
+      return filter
+    }),
+  )
+  .on(loadCurrencyRatesFx.doneData, (filters, rates) =>
+    filters.map((filter) => {
+      const code = filter.value.toLowerCase()
+      filter.rate = rates[code] ? rates[code].rate : 1
+      return filter
+    }),
+  )
+
+export const $selectedCurrency = $currencies.map((filters) =>
+  filters.find((filter) => filter.checked),
+)

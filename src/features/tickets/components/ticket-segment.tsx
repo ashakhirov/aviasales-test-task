@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { createNounDeclension } from 'lib/string'
 import { formatDuration, formatTimeInterval } from 'lib/date'
-import { DEFAULT_TIME_ZONE, STOPS, WITHOUT_STOPS } from 'consts'
+import { TIME_ZONE, STOPS, WITHOUT_STOPS } from 'consts'
 import { Segment } from '../types'
 
 type Props = {
@@ -17,7 +17,7 @@ export const TicketSegment: React.FC<Props> = React.memo(({ segment }) => {
   const timeInterval = formatTimeInterval(
     segment.date,
     segment.duration,
-    DEFAULT_TIME_ZONE,
+    TIME_ZONE,
   )
   const stopsTitle = createNounDeclension(
     segment.stops.length,

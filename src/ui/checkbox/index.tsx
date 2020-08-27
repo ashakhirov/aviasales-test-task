@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Filter } from 'features/filtering'
+import { Stop } from 'features/filtering'
 
-type Props = Filter & {
+type Props = Stop & {
   handleCheckboxChange: (id: string) => void
 }
 

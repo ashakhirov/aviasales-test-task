@@ -10,7 +10,7 @@ import {
 } from 'effector'
 
 import { $activeSortingId } from 'features/sorting'
-import { filtersUpdated, $activatedStops } from 'features/filtering'
+import { stopsUpdated, $activatedStops } from 'features/filtering'
 import { transformTickets } from './lib/transformer'
 import { getTickets, getSearchId } from './api'
 import { Ticket, SearchId } from './types'
@@ -81,5 +81,5 @@ forward({
 
 forward({
   from: ticketsUpdated,
-  to: filtersUpdated,
+  to: stopsUpdated,
 })
